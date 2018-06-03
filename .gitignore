@@ -1,2 +1,4 @@
 # Jekyll localhost test site
 _site
+.sass-cache
+.jekyll-metadata
