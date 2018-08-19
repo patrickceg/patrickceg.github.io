@@ -8,7 +8,11 @@ permalink: /about/
 
 Hello!
 
-I'm a software developer who likes posting about my 'what does this button do?' moments. I used to only put that stuff in forums, but for purely selfish reasons ("career portfolio"), I'm going to try to collect some of my thoughts here.
+I'm a software developer attempting a move into information security (the game between attackers and private data, and the most common misuse of the word 'hacker'). Whenever I find something I think could be useful represented in a different way, I'll post here.
+
+As a chunk of honesty, the site is also a response to this trend where a curriculum vitae needs to be augmented with some other presence, called a "professional portfolio" in most of the resources I found. At this point, I don't know how to defeat this trend I don't like without working full-time on that vegeful path, so for now I'll join'em. I don't want to end this segment on such a dark note so...
+
+Hope you find something useful here!
 
 ## About the Site
 
