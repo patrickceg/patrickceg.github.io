@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "4. Alternate Documentation in Videos (Apache Ignite, 1 of 2)"
-date:   2019-01-23 00:00:00
+date:   2019-01-26 00:00:00
 categories: tips
 ---
 
