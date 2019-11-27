@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "2. When to use DVDs (as well as CDs, Blu-Ray Discs)"
+title:  "When to use DVDs (as well as CDs, Blu-Ray Discs)"
 date:   2018-06-18 12:00:00
-categories: update
+categories: tips
 ---
 
 I just installed an operating system using a DVD+RW, a technology from the late 90s [[1]][1], in 2018. Although I like history, I wasn't just being 'retro' :wink:

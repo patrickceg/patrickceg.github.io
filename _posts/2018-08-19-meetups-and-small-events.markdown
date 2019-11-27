@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "3. Meetups and Events"
+title:  "Meetups and Events"
 date:   2018-08-19 20:00:00
 categories: tips
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "4. Apache Ignite: Documentation in Videos"
+title:  "Apache Ignite: Documentation in Videos"
 date:   2019-01-25 20:30:00
 categories: tips
 ---
