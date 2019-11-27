@@ -41,3 +41,5 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - debug.sh
+  - LICENSE
+  - README
