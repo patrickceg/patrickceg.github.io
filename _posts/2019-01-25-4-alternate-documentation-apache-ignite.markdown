@@ -1,11 +1,13 @@
 ---
 layout: post
-title:  "4. Apache Ignite, 1 of 2: Documentation in Videos"
+title:  "4. Apache Ignite: Documentation in Videos"
 date:   2019-01-25 20:30:00
 categories: tips
 ---
 
-This is the first of a two post series on Apache Ignite. This part discusses documentation about the project. [TL;DR](https://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn%27t_read): It's there, but in [YouTube videos](https://www.youtube.com/channel/UChYD3lCEnzHlWioUb2sNgSg)!
+EDIT November 26, 2019: I won't be needing to do the next part of this series as in the many months I've been doing other projects, Apache Ignite has improved their documentation, so going there would be better than looking this up.
+
+[TL;DR](https://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn%27t_read): Lots of Apache Ignite's documentation is in videos, but in [YouTube videos](https://www.youtube.com/channel/UChYD3lCEnzHlWioUb2sNgSg)!
 
 (This is my first post in quite a while, as I spent most of the fall looking for information security readings.)
 
@@ -37,4 +39,4 @@ So, lesson learned: Even for a product that isn't visual, you may be able to fin
 
 I plan to figure out a way to work how-tos into the Ignite community's documentation, but I wanted to get this post out first before attempting it. I was never really good at mailing list based communities (preferring message boards, live sessions, or chat), and it looks like Ignite does a lot of communication through a mailing list.
 
-The next post I'll have about Apache Ignite is how to link its caching and database portions together. Specifically, setting up so you can use an IgniteDataStreamer to add data, and use SQL queries with joins to read.  My use case isn't quite as well documented, so I'll put together a code sample to fill in the gap.
+~~The next post I'll have about Apache Ignite is how to link its caching and database portions together. Specifically, setting up so you can use an IgniteDataStreamer to add data, and use SQL queries with joins to read.  My use case isn't quite as well documented, so I'll put together a code sample to fill in the gap.~~
