@@ -61,4 +61,59 @@ Prerequisite: [Debian 10 Netinstall](https://www.debian.org/distrib/netinst) is 
   - Netmask 255.255.255.0
   - Gateway 192.168.211.5
   - Name server address: 192.168.211.5
-  - (Note the gateway and the name server are my router: I intentionally make its IPv4 address not end in a .1 because there's [random attacks](https://www.wiresoflife.com/how-to-protect-your-home-router-from-attacks/) that try to guess 192.168.0.1 or 192.168.1.1. It's also fun to test if anything breaks when the router isn't the first address in the network.)
+  - (Note the gateway and the name server are my router: I intentionally make its IPv4 address not end in a .1 because there are [random attacks](https://www.wiresoflife.com/how-to-protect-your-home-router-from-attacks/) that try to guess 192.168.0.1 or 192.168.1.1. It's also fun to test if anything breaks when the router isn't the first address in the network.)
+8. From the next few steps, it's a standard install, so I'll just list the options.
+9. Hostname: (something you want the domain controller to be called, I used pyxis01)
+10. Domain name: (it will eventually be the name of your domain, I used volatile.homelab)
+11. Root password: (Correct-Horse-Battery-Staple variants work because the big jumble of characters is annoying when you want to rescue the machine with a keyboard after its network connection dies)
+12. Regular user: (You won't be using it much, or can even delete it after you get domain logins working)
+13. NTP time zone: (Pick the same time zone as other machines in your network to not confuse yourself)
+14. If you want to be fancy for the partitioning, you can select Partitioning method: manual and reduce the size of the swap file. I used the following settings:
+  - /boot was 640 MB (although it survives at as little as 200 MB, enough dumb kernel updates where you forget apt autoremove and you fill that partition)
+  - (I'm using VMWare with legacy boot, but for UEFI devices, you'll want to set a /boot/efi partition of around 150MB)
+  - swap 256 MB
+  - / root partition for the rest of the drive
+![Screenshot: Debian 10: Manual partitioning](/assets/debian-10-dc/debinst-partitioning.png)
+15. For question - Scan another DVD? No
+16. For question - Package usage survey? (I selected yes but it doesn't matter)
+17. Choose software to install: SSH server, standard system utilities, with no GUI
+![Screenshot: Debian 10: Software selection](/assets/debian-10-dc/debinst-software-selection.png)
+18. Install Grub boot loader: The default, which for me was to install to /dev/sda.
+19. Keep clicking through more "Next" and "Continue" until your machine reboots. (I think the final prompt is "Restart" or "Reboot").
+
+## Fixing the network configuration
+
+Oddly after the installation, my machine was unavailable at the IP address I configured. When I checked, by logging in through the hypervisor and using `ip addr list`, the machine had no IPv4 address.
+
+![Screenshot: Debian 10: IP addr list shows IPv6 addresses only for the main network connection](/assets/debian-10-dc/debfix-ip-addr-list.png)
+
+The issue was that the _/etc/network/interfaces_ file had no IP information. If you get the same problem: 
+
+1. Start the nano text editor, default in Debian installs to open that file: ```nano /etc/network/interfaces```
+![Screenshot: Debian 10: /etc/network/interfaces initially](/assets/debian-10-dc/debfix-interfaces-initial.png)
+* For the screen reader folks, the main network connection for the machine had:
+```
+allow-hotplug ens192
+iface ens192 inet6 auto
+    dns-nameservers 192.168.211.5
+    dns-search volatile.homelab
+```
+* Note that there is no IPv4 setting, usually denoted by `inet` without the _6_. The loopback adaptor was OK with `iface lo inet loopback`, so it's possible the installer just failed setting my manual IPv4 settings.
+2. Edit the file to add an `inet static` block. Compared to my screenshot and description, you'll have to replace the string after iface (ens192 for me) and the IPv4 addresses with ones that make sense for your network. My full block after edits was:
+```
+allow-hotplug ens192
+iface ens192 inet static
+    address 192.168.211.30/24
+    gateway 192.168.211.5
+    dns-nameservers 192.168.211.5
+    dns-search volatile.homelab
+iface ens192 inet6 auto
+    dns-nameservers 192.168.211.5
+    dns-search volatile.homelab
+```
+* If you're unfamiliar with the notation of `192.168.211.30`, it's just another way of saying a device address of 192.168.211.30 with the subnet mask being 24 bits. Watch a video on IPv4 subnets for that, or use subnet calculators including <https://mxtoolbox.com/SubnetCalculator.aspx> for reference
+3. Reboot the machine, and hopefully it has a proper network connection.
+
+## Next Steps
+
+I'll fill it in by another post later. In case someone finds this early, I can confirm that Jonathon Reinhart's Debian 9 guide <https://jonathonreinhart.com/posts/blog/2019/02/11/setting-up-a-samba-4-domain-controller-on-debian-9/> still works from a machine initialized with the steps I mentioned. Even the package name and service names are still the same, so blindly copy-pasting Jonathon's guide into a Debian 10 machine will probably work. My process uses the interactive provisioning instead of the file, but is otherwise the same.
