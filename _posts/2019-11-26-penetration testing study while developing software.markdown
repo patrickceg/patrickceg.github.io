@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Penetration Testing Study while Developing Software"
+title:  "Opinion: Penetration Testing Study while Developing Software"
 date:   2019-11-26 21:00:00
 categories: update
 ---
