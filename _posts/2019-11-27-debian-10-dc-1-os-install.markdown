@@ -116,4 +116,5 @@ iface ens192 inet6 auto
 
 ## Next Steps
 
-I'll fill it in by another post later. In case someone finds this early, I can confirm that Jonathon Reinhart's Debian 9 guide <https://jonathonreinhart.com/posts/blog/2019/02/11/setting-up-a-samba-4-domain-controller-on-debian-9/> still works from a machine initialized with the steps I mentioned. Even the package name and service names are still the same, so blindly copy-pasting Jonathon's guide into a Debian 10 machine will probably work. My process uses the interactive provisioning instead of the file, but is otherwise the same.
+This machine is now ready for the steps in [part two]({% post_url 2019-11-28-debian-10-dc-2-dc-setup%})
+
