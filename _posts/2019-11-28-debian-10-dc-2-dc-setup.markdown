@@ -16,7 +16,7 @@ The first part is to configure the operating system so you can run `samba-tool d
 The steps to achieve these items are in the next subsection "Steps", but essentially you want these:
 
 * The machine is in its own hosts file
-* _Kerberos, winbind, ntp, samba, winbind_ are enabled
+* _Kerberos, winbind, ntp, samba, winbind, nsupdate_ are enabled
 * The package _resolvconf_ is disabled or uninstalled
 
 ### Note on administering Debian 10 with su
@@ -41,15 +41,15 @@ In Debian 10 it is more important to use `su -` (with that minus sign) because t
 #### Install and Configure Packages
 
 1. Verify resolvconf does not exist: `apt remove resolvconf`
-  - Either there should be no resolvconf package (e.g. the message is `Package 'resolvconf' is not installed, so not removed`), or you can follow the prompts to remove the package
+     - Either there should be no resolvconf package (e.g. the message is `Package 'resolvconf' is not installed, so not removed`), or you can follow the prompts to remove the package
 2. Install the required packages for the samba install: Type in the command below and then see in the next few bullet points the answers to give to each of the questions the instaler makes. Anything in [] brackets are items that are specific to my setup and may change for yours.
     ~~~
-    apt install ntp samba smbclient samba-common-bin krb5-user winbind
+    apt install ntp samba smbclient samba-common-bin krb5-user winbind dnsutils
     ~~~
-  - _Modify smb.conf to use WINS settings from DHCP?_ no
-  - _Default Kerberos version 5 realm:_ \[VOLATILE.HOMELAB\]
-  - _Kerberos servers for your realm:_ \[pyxis01.VOLATILE.HOMELAB\]
-  - _Administrative server for your Kerberos realm:_ \[pyxis01.VOLATILE.HOMELAB\]
+     - _Modify smb.conf to use WINS settings from DHCP?_ no
+     - _Default Kerberos version 5 realm:_ \[VOLATILE.HOMELAB\]
+     - _Kerberos servers for your realm:_ \[pyxis01.VOLATILE.HOMELAB\]
+     - _Administrative server for your Kerberos realm:_ \[pyxis01.VOLATILE.HOMELAB\]
 
 ## Samba Provisioning
 
@@ -81,15 +81,15 @@ rm /etc/samba/smb.conf
 ~~~
 samba-tool domain provision --use-rfc2307 --interactive
 ~~~
-* The [--use-rfc2307](https://wiki.samba.org/index.php/Setting_up_RFC2307_in_AD#RFC2307_on_AD_Domain_Controllers) allows you to set some Unix configurations in the domain. My project may need it when I start messing with file shares, so I have it on.
+   * The [--use-rfc2307](https://wiki.samba.org/index.php/Setting_up_RFC2307_in_AD#RFC2307_on_AD_Domain_Controllers) allows you to set some Unix configurations in the domain. My project may need it when I start messing with file shares, so I have it on.
 4. The samba-tool should now start asking you some questions. Here's what you want to say, and anything in [] brackets are items that are specific to my setup and may change for yours. For (default), you just press enter because the correct option should already be selected.
-  - Realm: \[VOLATILE.HOMELAB\]
-  - Domain: \[VOLATILE\]
-  - Server Role: dc
-  - DNS backend: (default) 
-  - DNS forwarder IP address: \[192.168.211.5\]
-    * Recall a domain controller is a DNS server, so this is the IP address to look at for any DNS lookups outside of the domain. If your router has DNS, you can use that. Otherwise, point to a public DNS provider including Cloudflare (1.1.1.1 or 1.0.0.1), Cisco/OpenDNS (208.67.220.220 or 208.67.222.222), Google (8.8.8.8), IBM (9.9.9.9).
-  - Administrator password: \[Correct-Horse-Battery-Staple-Variant-1\]
+     - Realm: \[VOLATILE.HOMELAB\]
+     - Domain: \[VOLATILE\]
+     - Server Role: dc
+     - DNS backend: (default) 
+     - DNS forwarder IP address: \[192.168.211.5\]
+         * Recall a (primary) domain controller is a DNS server, so this is the IP address to look at for any DNS lookups outside of the domain. If your router has DNS, you can use that. Otherwise, point to a public DNS provider including Cloudflare (1.1.1.1 or 1.0.0.1), Cisco/OpenDNS (208.67.220.220 or 208.67.222.222), Google (8.8.8.8), IBM (9.9.9.9).
+     - Administrator password: \[Correct-Horse-Battery-Staple-Variant-1\]
 5. Expect a bunch of output, and pay attention to a note about krb5.conf in there. My output was like this:
 ~~~
     A Kerberos configuration suitable for Samba AD has been generated at /var/lib/samba/private/krb5.conf
@@ -114,7 +114,7 @@ samba-tool domain provision --use-rfc2307 --interactive
     nameserver 192.168.211.30
 ~~~
 9. Reboot the machine with `reboot`
-10. Test the domain controller and your resolv.conf setting by typing the follwingm substituting \[volatile.homelab\] for your domain name. (the _ldap._tcp is part of the domain controller so it doesn't change)
+10. Test the domain controller and your resolv.conf setting by using `host -t SRV`, substituting \[volatile.homelab\] in my example below for your domain name. (the _ldap._tcp is part of the domain controller so it doesn't change)
 ~~~
     host -t SRV _ldap._tcp.volatile.homelab
 ~~~
@@ -128,3 +128,8 @@ samba-tool domain provision --use-rfc2307 --interactive
 
 * [Jonathon Reinhart. Domain Controller on Debian 9](https://jonathonreinhart.com/posts/blog/2019/02/11/setting-up-a-samba-4-domain-controller-on-debian-9/)
 * [Chris Brown. Integrating Linux in a Windows Enterprise Environment](https://app.pluralsight.com/library/courses/integrating-linux-windows-enterprise-environment/table-of-contents)
+
+## Updates
+
+* December 10th, 2012: I found some of the DNS update issues ("No such file or directory") of my domain were bcause of missing the _nsupdate_ system application: I added the appropriate package [dnsutils](https://packages.debian.org/buster/dnsutils).
+  - If you installed without knowing this, you can just install the package and everything should be happy after all the timers for dynamic dns updates occurs. Otherwise you can force the sync with `samba_dnsupdate --verbose --all-names`, source: https://wiki.samba.org/index.php/Testing_Dynamic_DNS_Updates
