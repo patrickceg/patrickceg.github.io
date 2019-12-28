@@ -10,7 +10,7 @@ Hello!
 
 I'm a software developer attempting a move into information security (the game between attackers and private data, and the most common misuse of the word 'hacker'). Whenever I find something I think could be useful represented in a different way, I'll post here.
 
-As a chunk of honesty, the site is also to submit to a job searching fad. The fad suggests a curriculum vitae needs to be augmented with some other presence, called a "professional portfolio" in most of the resources I found. At this point, I don't know how to defeat this trend I don't like without working full-time as a protestor, so for now I'll join'em. I don't want to end this segment on such a dark note so...
+As a chunk of honesty, the site is also to submit to a job searching fad. The fad suggests a curriculum vitae needs to be augmented with some other presence, called a "professional portfolio" in most of the resources I found. At this point, I don't know how to defeat this trend. I don't like without working full-time as a protestor, so for now I'll join'em. I don't want to end this segment on such a dark note so...
 
 Hope you find something useful here!
 
