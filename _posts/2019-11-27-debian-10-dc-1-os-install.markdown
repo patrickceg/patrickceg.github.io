@@ -2,7 +2,7 @@
 layout: post
 title:  "Debian 10 Active Directory Domain Controller with Samba: (1) Install and Prepare the OS"
 date:   2019-11-27 21:00:00
-categories: update
+categories: tips
 ---
 
 This is part of my series of how to get an active directory domain controller working with Samba on Debian 10.

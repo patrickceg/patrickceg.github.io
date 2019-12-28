@@ -2,7 +2,7 @@
 layout: post
 title:  "Debian 10 Active Directory Domain Controller with Samba: (2) Install Active Directory and Create Domain"
 date:   2019-11-28 21:00:00
-categories: update
+categories: tips
 ---
 
 This part of the Active Directory on Debian 10 guide is the main part of the installation, where you verify the packages are installed and you set up the domain proper. Note you need a static IP address set up, so refer to [part one]({% post_url 2019-11-27-debian-10-dc-1-os-install%}) for that bit.
