@@ -89,29 +89,31 @@ Oddly after the installation, my machine was unavailable at the IP address I con
 
 The issue was that the _/etc/network/interfaces_ file had no IP information. If you get the same problem: 
 
-1. Start the nano text editor, default in Debian installs to open that file: ```nano /etc/network/interfaces```
+1. Start the nano text editor, default in Debian installs to open that file: ~~~nano /etc/network/interfaces~~~
 ![Screenshot: Debian 10: /etc/network/interfaces initially](/assets/debian-10-dc/debfix-interfaces-initial.png)
 * For the screen reader folks, the main network connection for the machine had:
-```
+~~~
 allow-hotplug ens192
 iface ens192 inet6 auto
     dns-nameservers 192.168.211.5
     dns-search volatile.homelab
-```
+~~~
 * Note that there is no IPv4 setting, usually denoted by `inet` without the _6_. The loopback adaptor was OK with `iface lo inet loopback`, so it's possible the installer just failed setting my manual IPv4 settings.
 2. Edit the file to add an `inet static` block. Compared to my screenshot and description, you'll have to replace the string after iface (ens192 for me) and the IPv4 addresses with ones that make sense for your network. My full block after edits was:
-```
-allow-hotplug ens192
-iface ens192 inet static
-    address 192.168.211.30/24
-    gateway 192.168.211.5
-    dns-nameservers 192.168.211.5
-    dns-search volatile.homelab
-iface ens192 inet6 auto
-    dns-nameservers 192.168.211.5
-    dns-search volatile.homelab
-```
-* If you're unfamiliar with the notation of `192.168.211.30`, it's just another way of saying a device address of 192.168.211.30 with the subnet mask being 24 bits. Watch a video on IPv4 subnets for that, or use subnet calculators including <https://mxtoolbox.com/SubnetCalculator.aspx> for reference
+
+    ~~~
+   allow-hotplug ens192
+   iface ens192 inet static
+       address 192.168.211.30/24
+       gateway 192.168.211.5
+       dns-nameservers 192.168.211.5
+       dns-search volatile.homelab
+   iface ens192 inet6 auto
+       dns-nameservers 192.168.211.5 
+       dns-search volatile.homelab
+    ~~~
+
+   * If you're unfamiliar with the notation of `192.168.211.30`, it's just another way of saying a device address of 192.168.211.30 with the subnet mask being 24 bits. Watch a video on IPv4 subnets for that, or use subnet calculators including <https://mxtoolbox.com/SubnetCalculator.aspx> for reference
 3. Reboot the machine, and hopefully it has a proper network connection.
 
 ## Next Steps

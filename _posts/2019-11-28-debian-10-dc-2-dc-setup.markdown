@@ -110,8 +110,8 @@ samba-tool domain provision --use-rfc2307 --interactive
 7. Open up _/etc/resolv.conf_ in a text editor: `nano /etc/resolv.conf`
 8. Verify there is a _nameserver_ entry for your new domain controller's IP address. (The machine should point to itself for DNS.) I edited my file to be:
 ~~~
-    search volatile.homelab
-    nameserver 192.168.211.30
+   search volatile.homelab
+   nameserver 192.168.211.30
 ~~~
 9. Reboot the machine with `reboot`
 10. Test the domain controller and your resolv.conf setting by using `host -t SRV`, substituting \[volatile.homelab\] in my example below for your domain name. (the _ldap._tcp is part of the domain controller so it doesn't change)
