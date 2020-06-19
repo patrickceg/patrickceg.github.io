@@ -6,7 +6,7 @@ categories: tips
 ---
 
 I like the idea of [renaming the Git "master"](https://www.bbc.com/news/technology-53050955) default
-branch. 
+branch.
 In my personal project repositories, none of the definitions of the word "master" make sense for what I do with the
 branch.
 
@@ -33,18 +33,23 @@ In this case, I'm renaming `master` to `main`.
     git push --set-upstream origin main
     ```
 
-1.  Verify all your tooling can use that `main` branch or is aware of the default Git branch without using its name 
+1.  Switch your local repository copy to the new main branch
+    ```
+    git checkout main
+    ```
+
+1.  Verify all your tooling can use that `main` branch or is aware of the default Git branch without using its name
     before continuing. Tools you may need to reconfigure are:
 
     * [Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
     * [Continuous integration builds](https://www.atlassian.com/continuous-delivery/continuous-integration)
 
-1. Change the default branch on the server side. This is different depening on the repository.
+1.  Change the default branch on the server side. This is different depening on the repository.
     * [Github](https://help.github.com/en/github/administering-a-repository/setting-the-default-branch)
     * [Gitlab](https://docs.gitlab.com/ee/user/project/repository/branches/#default-branch)
     * [Bitbucket](https://community.atlassian.com/t5/Bitbucket-questions/How-to-change-MAIN-branch-in-BitBucket/qaq-p/977418)
 
-1. Finally, delete the old default branch on the server side:
+1.  Finally, delete the old default branch on the server side:
 
     ```
     git push --delete origin master
@@ -53,3 +58,9 @@ In this case, I'm renaming `master` to `main`.
 1.  View the repository in the server's web interface or [clone](https://git-scm.com/docs/git-clone)
     a new copy from the server.
     You should no longer see the old default branch.
+
+1.  Delete your local copy of the old default branch (so that you don't accidentally push and recreate it).
+
+    ```
+    git branch -d master
+    ```
