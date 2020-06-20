@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Renamining the default branch in Git"
+title:  "Renaming the default branch in Git"
 date:   2020-06-19 00:01
 categories: tips
 ---
