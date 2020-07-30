@@ -81,7 +81,9 @@ Prerequisite: [Debian 10 Netinstall](https://www.debian.org/distrib/netinst) is 
 18. Install Grub boot loader: The default, which for me was to install to /dev/sda.
 19. Keep clicking through more "Next" and "Continue" until your machine reboots. (I think the final prompt is "Restart" or "Reboot").
 
-## Fixing the network configuration
+## Fixing the network configuration (Debian prior to 10.4)
+
+Update: Debian 10.4 doesn't have this problem, so skip this section if you are running a different Debian 10 installer
 
 Oddly after the installation, my machine was unavailable at the IP address I configured. When I checked, by logging in through the hypervisor and using `ip addr list`, the machine had no IPv4 address.
 
