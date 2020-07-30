@@ -108,6 +108,7 @@ Although the domain will work for domain users and DNS lookups, you need to set 
     * Replace the string `AAAACXNzaC1lZDIXNTE5AAAAXH7zeITFPMQcXyxJnn2ZXPU4X40WwD39boaOU+2ABbAt root@pyxis01` with your own SSH public key that you generated
 
     ~~~
+   mkdir /root/.ssh/ 
    echo "ssh-ed25519 AAAACXNzaC1lZDIXNTE5AAAAXH7zeITFPMQcXyxJnn2ZXPU4X40WwD39boaOU+2ABbAt root@pyxis01" > /root/.ssh/authorized_keys
    chmod 700 /root/.ssh
    chmod 600 /root/.ssh/authorized_keys
@@ -211,6 +212,7 @@ EOF
     ~~~
 
 9. Still logged in as root on the primary domain controller, perform the first sync.
+    * Replace _root@pyxis02_ with your secondary domain controller's name
 
     ~~~
    /usr/bin/rsync -XAavz --log-file /var/log/sysvol-sync.log --delete-after -f"+ */" -f"- *"  /var/lib/samba/sysvol root@pyxis02:/var/lib/samba
@@ -230,7 +232,7 @@ EOF
     2. At the bottom of the file, add the line (it is one line, but a long one)
 
 ~~~
-`*/5 * * * * /usr/bin/rsync -XAavzq --log-file /var/log/sysvol-sync.log --delete-after -f"+ */" -f"- *"  /var/lib/samba/sysvol root@pyxis02:/var/lib/samba  && /usr/bin/unison -silent`
+*/5 * * * * /usr/bin/rsync -XAavzq --log-file /var/log/sysvol-sync.log --delete-after -f"+ */" -f"- *"  /var/lib/samba/sysvol root@pyxis02:/var/lib/samba  && /usr/bin/unison -silent
 ~~~
 
 ## References
