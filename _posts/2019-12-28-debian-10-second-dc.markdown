@@ -104,7 +104,7 @@ Although the domain will work for domain users and DNS lookups, you need to set 
    ssh-ed25519 AAAACXNzaC1lZDIXNTE5AAAAXH7zeITFPMQcXyxJnn2ZXPU4X40WwD39boaOU+2ABbAt root@pyxis01
     ~~~
 
-2. On the secondary domain controller, copy that public key into authorized_hosts
+2. On the secondary domain controller, copy that public key into authorized_keys
     * Replace the string `AAAACXNzaC1lZDIXNTE5AAAAXH7zeITFPMQcXyxJnn2ZXPU4X40WwD39boaOU+2ABbAt root@pyxis01` with your own SSH public key that you generated
 
     ~~~
@@ -115,7 +115,7 @@ Although the domain will work for domain users and DNS lookups, you need to set 
     ~~~
 
 3. On the secondary domain controller, set up the SSD daemon to allow root login from the primary domain controller. (To clarify, this set of commands is run against the secondary domain controller.)
-    1. Open /etc/ssh/sshd.config in a text editor `nano /etc/ssh/sshd.config`
+    1. Open /etc/ssh/sshd.config in a text editor `nano /etc/ssh/sshd_config`
     2. At the bottom of the file, add the following, replacing the IP address _192.168.211.30_ with your primary domain controller's IP address.
 
     ~~~
