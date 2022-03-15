@@ -19,5 +19,3 @@ Hope you find something useful here!
 If you have any questions comments about the pages (layout, content, language, whatever else), you can ping my Github or Twitter (last time I checked my DM is open). The last thing I want is to have the comments section which overflows with attack code attempts and horrible remarks ;)
 
 FYI, like any other Github Pages page, the stuff that Github's magic parses into what you're looking at now is hosted in a repository https://github.com/patrickceg/patrickceg.github.io
-
-
